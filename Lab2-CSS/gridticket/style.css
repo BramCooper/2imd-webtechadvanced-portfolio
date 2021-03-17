@@ -1,0 +1,16 @@
+*{
+    color: whitesmoke;
+}
+#bgIMG{
+    width: 55.5em;
+    height: auto;
+    background-image: url(./img/festival.jpeg);
+    background-size: contain;
+    padding: 1em;
+}
+#border{
+    width: 55em;
+    height: 20em;
+    border-style: solid;
+    
+}
