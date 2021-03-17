@@ -1,6 +1,8 @@
-.box{
+section{
     display: grid;
-    padding: 2em;
+    /*background-color: green;*/
+    gap: 1em;
+    padding: 0.5em;
 }
 
 .pink{
@@ -13,4 +15,19 @@
 
 .yellow{
     background-color: rgb(235, 203, 21);
+}
+
+.box{
+    padding: 2em;
+    text-align: center;
+    font-size: x-large;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (min-width:735px){
+    section{
+        grid-template-columns: 1fr 1fr;
+    }
 }
