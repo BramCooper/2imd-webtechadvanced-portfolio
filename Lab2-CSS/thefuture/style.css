@@ -1,0 +1,16 @@
+.box{
+    display: grid;
+    padding: 2em;
+}
+
+.pink{
+    background-color: rgb(211, 63, 95);
+}
+
+.blue{
+    background-color: rgb(111, 221, 255);
+}
+
+.yellow{
+    background-color: rgb(235, 203, 21);
+}
