@@ -37,6 +37,15 @@ class Note {
   }
   
   remove() {
+      let todoList = document.querySelector("#taskList");
+      todoList.removeChild(this);
+      
+      let Storage = window.localStorage;
+      let notesStorage = JSON.parse(Storage.getItem("notes"));
+      let notesIndex = notesStorage.indexOf(this.innerHTML);
+
+      notesStorage.splice(notesIndex, 1);
+      Storage.setItem("notes", JSON.stringify(notesStorage));
       // HINT🤩 the meaning of 'this' was set by bind() in the createElement function
       // in this function, 'this' will refer to the current note element
       // .removeChild(this)
