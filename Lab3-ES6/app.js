@@ -1,44 +1,56 @@
 class Note {
-    constructor(title) {
-        this.title = title;
-        this.element = this.createElement(title);
-    }
+  constructor(title) {
+      this.title = title;
+      this.element = this.createElement(title);
+  }
   
-    createElement(title) {
-        let newNote = document.createElement("li");
-        newNote.addEventListener('click', this.remove.bind(newNote));
-        newNote.innerHTML = title;
-        return newNote;
-    }
+  createElement(title) {
+      let newNote = document.createElement("li");
+      newNote.addEventListener('click', this.remove.bind(newNote));
+      newNote.innerHTML = title;
+      return newNote;
+  }
   
-    add(note) {
-        let todoList = document.querySelector("#taskList");
-        todoList.appendChild(note);
+  add(note) {
+      let todoList = document.querySelector("#taskList");
+      todoList.appendChild(note);
 
       // HINT🤩
       // this function should append the note to the screen somehow
-    }
+  }
   
-    saveToStorage() {
+  saveToStorage(note) {
+      let Storage = window.localStorage;
+      let notes = [];
+
+      if(Storage.notes === undefined){
+          notes.push(note);
+          Storage.setItem("notes", JSON.stringify(notes));
+      }else{
+          notes = JSON.parse(Storage.getItem("notes"));
+          notes.push(note);
+          Storage.setItem("notes", JSON.stringify(notes));
+      }
       // HINT🤩
       // localStorage only supports strings, not arrays
       // if you want to store arrays, look at JSON.parse and JSON.stringify
-    }
+  }
   
-    remove() {
+  remove() {
       // HINT🤩 the meaning of 'this' was set by bind() in the createElement function
       // in this function, 'this' will refer to the current note element
       // .removeChild(this)
       // remove the item from screen and from localstorage
-    }
   }
+}
   
   class App {
     constructor() {
-        console.log("👊🏼 The Constructor!");
-        this.txtTodo = document.querySelector("#taskInput");
-        this.txtTodo.addEventListener("keypress", this.createNote.bind(this));
-  
+      console.log("👊🏼 The Constructor!");
+      this.txtTodo = document.querySelector("#taskInput");
+      this.txtTodo.addEventListener("keypress", this.createNote.bind(this));
+      this.loadNotesFromStorage();
+
       // HINT🤩
       // pressing the enter key in the text field triggers the createNote function
       // this.txtTodo = ???
@@ -49,16 +61,27 @@ class Note {
     }
   
     loadNotesFromStorage() {
+      let Storage = window.localStorage;
+      let notesStorage = JSON.parse(Storage.getItem("notes"));
+
+      if (notesStorage != null){
+        notesStorage.forEach( (note)=> {
+           let loadNewNote = new Note(note);
+           loadNewNote.add(loadNewNote.element);
+         });
+      }
       // HINT🤩
       // load all notes from storage here and add them to the screen
-    }
+  }
   
     createNote(e) {
       if (e.key === "Enter") {
-          e.preventDefault();
-          let input = this.txtTodo.value;
-          let note = new Note(input);
-          note.add(note.element);
+        e.preventDefault();
+        let input = this.txtTodo.value;
+        let note = new Note(input);
+        note.add(note.element);
+        this.reset();
+        note.saveToStorage(note.title);
       }
       // this function should create a new note by using the Note() class
       // HINT🤩
@@ -69,6 +92,7 @@ class Note {
     }
   
     reset() {
+      this.txtTodo.value = "";
       // this function should reset the form / clear the text field
     }
   }
