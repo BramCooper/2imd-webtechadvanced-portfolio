@@ -17,6 +17,17 @@ const getMessagesId = (req, res) => {
     });
 }
 
+const createMessages = (req, res) => {
+    let username = "Pikachu";
+    res.json({
+        status: "success",
+        data: {
+            message: `POSTING a new message for user ${username}`
+        }
+    });
+}
+
 module.exports.getMessages = getMessages;
 module.exports.getMessagesId = getMessagesId;
+module.exports.createMessages = createMessages;
 
