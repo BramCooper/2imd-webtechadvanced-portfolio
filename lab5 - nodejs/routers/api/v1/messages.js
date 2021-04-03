@@ -3,6 +3,7 @@ const router = express.Router();
 const messagesController = require('../../../controller/api/v1/messages')
 
 router.get("/", messagesController.getMessages);
+router.get("/:id", controllerMessages.getMessagesId);
 
 
 router.post('/', (req, res) => {
