@@ -1,11 +1,21 @@
 const getMessages = (req, res) => {
-    res.json({
-        status: "success",
-        data: {
-            message: "GETTING messages"
-        }
-    });
-}
+    if(req.query.user) {
+        let user = req.query.user;
+        res.json({
+            status: "success",
+            data: {
+                message: `GETTING messages for username: ${user}`
+            }
+        });
+    } else {
+        res.json({
+            status: "success",
+            data: {
+                message: "GET all messages"
+            }
+        });
+    }
+};
 
 const getMessagesId = (req, res) => {
     let id = req.params.id;
@@ -15,7 +25,7 @@ const getMessagesId = (req, res) => {
             message: `GETTING messages with ID ${id}`
         }
     });
-}
+};
 
 const createMessages = (req, res) => {
     let username = "Pikachu";
@@ -25,7 +35,7 @@ const createMessages = (req, res) => {
             message: `POSTING a new message for user ${username}`
         }
     });
-}
+};
 
 const updateMessages = (req, res) => {
     let id = req.params.id;
@@ -35,7 +45,7 @@ const updateMessages = (req, res) => {
             message: `UPDATING message with ID ${id}`
         }
     });
-}
+};
 
 const deleteMessages = (req, res) => {
     let id = req.params.id;
@@ -45,12 +55,10 @@ const deleteMessages = (req, res) => {
             message: `DELETING a message with ID ${id}`
         }
     });
-}
-
+};
 
 module.exports.getMessages = getMessages;
 module.exports.getMessagesId = getMessagesId;
 module.exports.createMessages = createMessages;
 module.exports.updateMessages = updateMessages;
 module.exports.deleteMessages = deleteMessages;
-
